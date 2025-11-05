@@ -1,6 +1,7 @@
-package com.pluralsight.streams;
+package com.pluralsight.traditional;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Program {
@@ -24,20 +25,42 @@ public class Program {
         System.out.println("Enter a first or last name to search: ");
         String nameInput = sc.nextLine();
 
+        List<Person> results = new ArrayList<>();
+
         for (Person person : people) {
             
             if (nameInput.equalsIgnoreCase(person.getFirstName())) {
-                System.out.println(person);
+                results.add(person);
             } else if (nameInput.equalsIgnoreCase(person.getLastName())) {
-                System.out.println(person);
+                results.add(person);
             }
         }
 
-//        for (Person person : people) {
-//
-//           int averageAge = person.getAge() /
-//
-//        }
+        for (int i = 0; i < results.size(); i++) {
+            System.out.println("Person found: " + (i + 1) + ":");
+            System.out.println(results.get(i));
+        }
 
+        int averageAge = 0;
+        int oldestAge = -1;
+        int youngestAge = 1000;
+
+        for (Person person : people) {
+            averageAge += person.getAge();
+
+            if (person.getAge() > oldestAge) {
+                oldestAge = person.getAge();
+            }
+
+            if (person.getAge() < youngestAge) {
+                youngestAge = person.getAge();
+            }
+        }
+
+        System.out.println("Average age of list of people: " + averageAge / people.size());
+        System.out.println("Oldest age of list of people: " + oldestAge);
+        System.out.println("Youngest age of list of people: " + youngestAge);
+
+        sc.close();
     }
 }
